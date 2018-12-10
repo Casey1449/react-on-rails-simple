@@ -1,8 +1,10 @@
 .item {
   padding: 5px;
   display: inline-block;
+  color: blue;
 }
 
 .main {
   padding: 5px;
+  color: blue;
 }
