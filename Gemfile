@@ -11,6 +11,7 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', github: "rails/sass-rails"
 
 gem 'react_on_rails'
+gem 'webpacker'
 gem 'foreman', require: false
 
 gem 'uglifier', '>= 1.3.0'
