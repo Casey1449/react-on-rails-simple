@@ -1,9 +1,14 @@
 const webpack = require("webpack")
 const path = require("path")
+const ManifestPlugin = require('webpack-manifest-plugin')
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+
+const configPath = path.resolve('..', 'config');
+const { output } = webpackConfigLoader(configPath)
 
 const nodeEnv = process.env.NODE_ENV || "development"
 
-const PORT = 8080
+// const PORT = 8080
 
 const config = {
   entry: [
@@ -12,9 +17,15 @@ const config = {
     "entry"
   ],
 
-  output: {
-    filename: "hmr-bundle.js",
-    publicPath: `http://localhost:${PORT}/`
+  // output: {
+  //   filename: "hmr-bundle.js",
+  //   publicPath: `http://localhost:${PORT}/`
+  // },
+
+    output: {
+    filename: '[name].js', // [chunkhash] because we've got to do our own cache-busting now
+    path: output.path,
+    publicPath: output.publicPath,
   },
 
   resolve: {
@@ -27,7 +38,11 @@ const config = {
       "process.env": { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new ManifestPlugin({
+        publicPath: output.publicPath,
+        writeToFileEmit: true
+      }),
   ],
 
   module: {
@@ -48,17 +63,17 @@ const config = {
     ]
   },
 
-  devServer: {
-    host: "0.0.0.0",
-    port: PORT,
-    headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
-    hot: true,
-    stats: {
-      hash: false,
-      version: false,
-      chunks: false
-    }
-  }
+  // devServer: {
+  //   host: "0.0.0.0",
+  //   port: PORT,
+  //   headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
+  //   hot: true,
+  //   stats: {
+  //     hash: false,
+  //     version: false,
+  //     chunks: false
+  //   }
+  // }
 }
 
 if (nodeEnv !== "production") {

@@ -5,7 +5,7 @@
     "npm": "4.1.1"
   },
   "scripts": {
-    "hmr": "webpack-dev-server --config webpack.config --progress"
+    "hmr": "webpack"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
@@ -17,6 +17,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
+    "js-yaml": "^3.12.0",
     "react": "^15",
     "react-dom": "^15.4.1",
     "react-on-rails": "11.2.1",
@@ -25,7 +26,8 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.6.0",
     "style-loader": "^0.18.2",
-    "webpack": "^3.4.1"
+    "webpack": "^3.4.1",
+    "webpack-manifest-plugin": "^1.2.1"
   },
   "devDependencies": {
     "react-hot-loader": "^4.3.6",
