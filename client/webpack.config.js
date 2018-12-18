@@ -15,7 +15,7 @@ const config = {
   entry: [
     "babel-polyfill",
     "react-hot-loader/patch",
-    "entry"
+    "app"
   ],
 
   output: {
@@ -25,7 +25,7 @@ const config = {
   },
 
   resolve: {
-    modules: [path.resolve("./src"), "node_modules"],
+    modules: [path.resolve("./app"), "node_modules"],
     extensions: [".js"],
   },
 
@@ -46,7 +46,7 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: [path.resolve("./src")]
+        include: [path.resolve("./app")]
       },
       {
         test: /\.css$/,
