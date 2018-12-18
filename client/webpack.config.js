@@ -60,17 +60,8 @@ const config = {
               localIdentName: '[name]__[local]__[hash:base64:5]'
             }
           },
-          // 'postcss-loader',
         ]
       },
-
-      // {
-      //   test: /\.css$/,
-      //   loader: [
-      //     "style-loader?sourceMap",
-      //     "css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
-      //   ]
-      // }
     ]
   },
 
