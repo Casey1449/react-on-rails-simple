@@ -4,7 +4,7 @@ const ManifestPlugin = require('webpack-manifest-plugin'); // we'll use this lat
 
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 const configPath = path.resolve('..', 'config');
-const { output } = webpackConfigLoader(configPath);
+const { output, settings } = webpackConfigLoader(configPath);
 
 const nodeEnv = process.env.NODE_ENV || "development"
 
@@ -66,9 +66,9 @@ const config = {
   },
 
   devServer: {
-    host: "0.0.0.0",
-    port: PORT,
-    headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
+    host: settings.dev_server.host,
+    port: settings.dev_server.port,
+    headers: { "Access-Control-Allow-Origin": "*" },
     hot: true,
     stats: {
       hash: false,
