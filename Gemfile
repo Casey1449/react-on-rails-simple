@@ -14,7 +14,7 @@ gem 'react_on_rails'
 gem 'foreman', require: false
 
 gem 'uglifier', '>= 1.3.0'
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
@@ -39,4 +39,4 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'mini_racer', platforms: :ruby
+# gem 'mini_racer', platforms: :ruby
