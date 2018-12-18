@@ -1,5 +1,9 @@
-const webpack = require("webpack")
-const path = require("path")
+const path = require('path');
+const ManifestPlugin = require('webpack-manifest-plugin'); // we'll use this later
+
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const configPath = path.resolve('..', 'config');
+const { output } = webpackConfigLoader(configPath);
 
 const nodeEnv = process.env.NODE_ENV || "development"
 
@@ -13,8 +17,9 @@ const config = {
   ],
 
   output: {
-    filename: "hmr-bundle.js",
-    publicPath: `http://localhost:${PORT}/`
+    filename: '[name]-[chunkhash].js', // [chunkhash] because we've got to do our own cache-busting now
+    path: output.path,
+    publicPath: output.publicPath,
   },
 
   resolve: {
