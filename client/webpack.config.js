@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require("webpack")
 const ManifestPlugin = require('webpack-manifest-plugin'); // we'll use this later
 
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
@@ -10,6 +11,7 @@ const nodeEnv = process.env.NODE_ENV || "development"
 const PORT = 8080
 
 const config = {
+  mode: "development",
   entry: [
     "babel-polyfill",
     "react-hot-loader/patch",
@@ -17,7 +19,7 @@ const config = {
   ],
 
   output: {
-    filename: '[name]-[chunkhash].js', // [chunkhash] because we've got to do our own cache-busting now
+    filename: '[name]-[hash].js', // [chunkhash] because we've got to do our own cache-busting now
     path: output.path,
     publicPath: output.publicPath,
   },
@@ -28,6 +30,10 @@ const config = {
   },
 
   plugins: [
+        new ManifestPlugin({
+      publicPath: output.publicPath,
+      writeToFileEmit: true
+    }),
     new webpack.DefinePlugin({
       "process.env": { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
@@ -42,14 +48,29 @@ const config = {
         loader: "babel-loader",
         include: [path.resolve("./src")]
       },
-
       {
         test: /\.css$/,
-        loader: [
-          "style-loader?sourceMap",
-          "css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 0,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          // 'postcss-loader',
         ]
-      }
+      },
+
+      // {
+      //   test: /\.css$/,
+      //   loader: [
+      //     "style-loader?sourceMap",
+      //     "css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
+      //   ]
+      // }
     ]
   },
 
