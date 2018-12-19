@@ -8,13 +8,11 @@ const { output, settings } = webpackConfigLoader(configPath);
 
 const nodeEnv = process.env.NODE_ENV || "development"
 
-const PORT = 8080
-
 const config = {
   mode: "development",
   entry: [
-    "babel-polyfill",
-    "react-hot-loader/patch",
+    `webpack-dev-server/client?http://${settings.dev_server.host}:${settings.dev_server.port}`,
+    "webpack/hot/only-dev-server",
     "app"
   ],
 
@@ -30,7 +28,7 @@ const config = {
   },
 
   plugins: [
-        new ManifestPlugin({
+    new ManifestPlugin({
       publicPath: output.publicPath,
       writeToFileEmit: true
     }),
@@ -46,7 +44,11 @@ const config = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: [path.resolve("./app")]
+        include: [path.resolve("./app")],
+        options: {
+          cacheDirectory: true,
+          plugins: ['react-hot-loader/babel'],
+        },
       },
       {
         test: /\.css$/,
@@ -70,6 +72,7 @@ const config = {
     port: settings.dev_server.port,
     headers: { "Access-Control-Allow-Origin": "*" },
     hot: true,
+    contentBase: './app',
     stats: {
       hash: false,
       version: false,

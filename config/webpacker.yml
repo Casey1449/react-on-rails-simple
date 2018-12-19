@@ -18,7 +18,7 @@ development:
   dev_server:
     host: localhost
     port: 8080
-    hmr: true
+    hmr: false
     https: false
 
 test:

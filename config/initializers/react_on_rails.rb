@@ -6,7 +6,7 @@ ReactOnRails.configure do |config|
   # Directory where your generated assets go. All generated assets must go to the same directory.
   # Configure this in your webpack config files. This relative to your Rails root directory.
   # Define the files we need to check for webpack compilation when running tests.
-  config.webpack_generated_files = %w( webpack-bundle.js )
+  # config.webpack_generated_files = %w( webpack-bundle.js )
 
   # This is the file used for server rendering of React when using `(prerender: true)`
   # If you are never using server rendering, you may set this to "".
